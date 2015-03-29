@@ -1,43 +1,20 @@
-import matplotlib.pyplot as plt
-import numpy as np
-
-class Integrate():
+class Integrate(object):
 # Here f is a function to be Integrated, b is final and a is initial point of limit of Definate Integral.
 
     def trapezoid(self, a, b, f, n=100):
         h = float(b - a) / n
         s = 0.0
-        x=np.linspace(a-2,b+2,500)
-        y=[0 for i in x]
-        plt.plot(x,y,color='r')
-        plt.annotate('X-AXIS',xy=(x[240],y[240]-10),xytext=(x[240],y[240]-10))
-        plt.ylabel('Y-AXIS')
-        x=np.linspace(a-2,b+2,500)
-        y=[f(i) for i in x]
-        plt.plot(x,y)
         s += f(a)/2.0
-        y=np.linspace(0,f(a),10)
-        x=[a for j in y]
-        plt.plot(x,y,'-',color='g')
-        plt.plot([a,a + h],[f(a),f(a+h)],'-',color='g')
-        plt.annotate('Integration',xy=(a,f(b)),xytext=(a,f(b)))
-         
         for i in range(1, n):
             s += f(a + i*h)
-            y=np.linspace(0,f(a + i*h),10)
-            x=[a + i*h for j in y]
-            plt.plot(x,y,'-',color='g')
-            plt.plot([a+i*h,a + (i+1)*h],[f(a+i*h),f(a+(i+1)*h)],'-',color='g')
         s += f(b)/2.0
-        y=np.linspace(0,f(b),10)
-        x=[b for j in y]
-        plt.plot(x,y,'-',color='g')
-        plt.show()
         return s * h
     
         
     def simpson(self, a, b, f, n=100):
-        
+        if n & 1:
+            print ("Error: n is zero which is not allowed")
+            return 0.0
     
         h = float(b - a) / n
         integral = 0.0
@@ -57,9 +34,3 @@ class Integrate():
             return self.trapezoid(a, b, f, n)
         elif method== 'simpson':
             return self.simpson(a, b, f, n)
-p=Integrate();
-method=['trapezoid','simpson']
-f=lambda x:x**3
-for i in method:
-   print( p.solve(i,0,4,f,100))
-   
