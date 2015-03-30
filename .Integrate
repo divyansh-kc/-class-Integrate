@@ -1,4 +1,4 @@
-class Integrate(object):
+'''class Integrate(object):
 # Here f is a function to be Integrated, b is final and a is initial point of limit of Definate Integral.
 
     def trapezoid(self, a, b, f, n=100):
@@ -33,4 +33,54 @@ class Integrate(object):
         if method=='trapezoid':
             return self.trapezoid(a, b, f, n)
         elif method== 'simpson':
-            return self.simpson(a, b, f, n)
+            return self.simpson(a, b, f, n)'''
+            
+'''the graph plotting functions are given below'''            
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def simplot(f,a,b,n):
+    x=np.arange(a,b,0.1)
+    y=f(x)
+    plt.plot(x,y,'r-')
+    z=np.linspace(a,b,n)#divide interval in n parts
+    g,h=[],[]
+    i=0
+    while i<len(z)-1:
+        g.append((z[i]+z[i+1])/2.0)
+        i=i+1
+        
+    for i in g:
+        h.append(f(i))#corresponding y cordinates
+    w=z[1]-z[0]#width
+    
+    v=z
+    v=np.delete(v,len(v)-1)#delete the last cordinate
+    plt.bar(v,h,width=w)
+    for i,j in zip(g,h):
+        plt.plot([i,i],[j,0],'r--')
+    plt.title('INTEGRATION BY SIMPSONS METHOD')
+    plt.xlabel('X-AXIS')
+    plt.ylabel('Y-AXIS')
+        
+                
+def traplot(f,a,b,n):
+     x=np.arange(a,b,0.1)
+     y=f(x)
+     plt.plot(x,y,'r-')
+     z=np.linspace(a,b,n)
+     y=[0]*n
+     plt.plot(z,y,'bo-')
+     plt.plot(z,f(z),'bo')
+     c=f(z)
+     for i,j in zip(z,c):
+         plt.plot([i,i],[j,0],'bo-')
+     plt.plot(z,f(z),'bo-')
+     plt.title('INTEGRATION BY TRAPEZOIDAL METHOD')
+     plt.xlabel('X-AXIS')
+     plt.ylabel('Y-AXIS')
+     
+                   
+    
+    
